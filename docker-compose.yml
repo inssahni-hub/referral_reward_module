@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  referal_reward_module:
+    build: .
+    container_name: referal_reward_module
+    ports:
+      - "3006:8080"
+    env_file:
+      - .env
+    restart: always
