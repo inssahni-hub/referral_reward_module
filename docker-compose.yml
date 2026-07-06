@@ -5,7 +5,7 @@ services:
     build: .
     container_name: referal_reward_module
     ports:
-      - "3006:8080"
+      - "3008:8080"
     env_file:
       - .env
     restart: always
