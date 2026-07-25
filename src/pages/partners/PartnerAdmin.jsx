@@ -176,7 +176,7 @@ export default function PartnerAdmin() {
         <div>
           <h1 className="text-xl font-black text-slate-900 flex items-center gap-2 tracking-tight">
             <span>Partners</span>
-           
+
           </h1>
           <p className="text-xs text-slate-500 mt-0.5">Manage partner listings, adjust ledger reserves, authorize payouts, and disburse event revenues.</p>
         </div>
@@ -217,7 +217,23 @@ export default function PartnerAdmin() {
         <button
           id="btn_trigger_settlement_now"
           onClick={handleTriggerSettlement}
-          className="px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs rounded-xl shadow-md transition-colors whitespace-nowrap active:scale-95"
+          className="
+              px-5
+              py-2.5
+              bg-[#2189ed]
+              hover:bg-[#1c75cb]
+              active:bg-[#1763ad]
+              text-white
+              font-semibold
+              text-xs
+              rounded-xl
+              shadow-sm
+              hover:shadow-md
+              transition-all
+              active:scale-95
+              whitespace-nowrap
+              cursor-pointer
+            "
         >
           Trigger Settlement Engine
         </button>
@@ -341,7 +357,25 @@ export default function PartnerAdmin() {
             <button
               id="btn_toggle_add_manual"
               onClick={() => setShowAddForm(!showAddForm)}
-              className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-slate-900 border border-slate-800 text-white hover:text-white font-bold text-xs rounded-xl"
+              className="
+                  inline-flex
+                  items-center
+                  gap-1.5
+                  px-4
+                  py-2.5
+                  bg-[#2189ed]
+                  hover:bg-[#1c75cb]
+                  active:bg-[#1763ad]
+                  text-white
+                  font-semibold
+                  text-xs
+                  rounded-xl
+                  shadow-sm
+                  hover:shadow-md
+                  transition-all
+                  active:scale-95
+                  cursor-pointer
+                "
             >
               <UserPlus className="w-4 h-4" />
               <span>Onboard Partner Manually</span>
@@ -453,10 +487,10 @@ export default function PartnerAdmin() {
               <thead>
                 <tr className="bg-slate-50/75 border-b border-slate-100 font-bold text-slate-400 text-[10px] uppercase tracking-wide">
                   <th className="px-6 py-3">Partner Details</th>
-                   <th className="px-6 py-3">Email</th>
+                  <th className="px-6 py-3">Email</th>
                   <th className="px-6 py-3 text-center">Share Ratio</th>
                   <th className="px-6 py-3 text-right">Wallet aggregates</th>
-                 
+
                   <th className="px-6 py-3 text-right">Actions</th>
                 </tr>
               </thead>
@@ -486,8 +520,8 @@ export default function PartnerAdmin() {
                           </p>
                         </div>
                       </td>
-                       <td className="px-6 py-4">
-                       
+                      <td className="px-6 py-4">
+
                         <p className="text-[10px] text-slate-400 font-mono mt-0.5">{part.email}</p>
                       </td>
                       <td className="px-6 py-4 text-center font-bold text-slate-700">
@@ -497,7 +531,7 @@ export default function PartnerAdmin() {
                         <p className="font-bold text-emerald-600 font-mono">+${Number(part.wallet?.redeemableEarnings || 0).toFixed(2)} redeemable</p>
                         <p className="text-[10px] text-slate-400 font-mono">Pending: ${Number(part.wallet?.pendingEarnings || 0).toFixed(2)} • Out: ${Number(part.wallet?.withdrawnAmount || 0).toFixed(2)}</p>
                       </td>
-                     
+
                       <td className="px-6 py-4 text-right flex justify-end gap-2 mt-1">
                         <button
                           id={`btn_open_adjust_${part._id}`}

@@ -37,24 +37,45 @@ export default function ReferralTransactionsTable({ transactions = [], onSettleE
     <div className="space-y-6" id="referrals-tx-panel">
       {/* Settle Event Quick Panel */}
       {pendingEventsList.length > 0 && (
-        <div className="bg-[#FFF9E6] border border-[#E5E2DE] rounded-sm p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="bg-[#EFF7FF] border border-[#BFDBFE] rounded-xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <span className="text-[9px] bg-[#1C1C1C] text-white font-extrabold tracking-widest px-2.0 py-1 rounded-sm uppercase">
+            <span className="text-[10px] bg-[#2189ed] text-white font-bold tracking-widest px-2.5 py-1 rounded-lg uppercase">
               Action Required
             </span>
-            <h4 className="text-sm font-bold text-[#1C1C1C] mt-2">Pending Event Settlements Detected</h4>
-            <p className="text-xs text-[#706E6B] mt-0.5 max-w-xl">
-              Promoter commissions are locked in "Pending" state during pre-sales. Settle/Complete the events below to release pending commissions into modern redeemable wallets.
+
+            <h4 className="text-sm font-bold text-gray-900 mt-3">
+              Pending Event Settlements Detected
+            </h4>
+
+            <p className="text-xs text-gray-600 mt-1 max-w-xl">
+              Promoter commissions remain in a <strong>Pending</strong> state until
+              events are completed. Complete the events below to release pending
+              commissions into the promoter's redeemable wallet.
             </p>
           </div>
 
           <div className="flex flex-wrap gap-2">
-            {pendingEventsList.map(ev => (
+            {pendingEventsList.map((ev) => (
               <button
                 key={`settle-btn-${ev.eventId}`}
                 type="button"
                 onClick={() => onSettleEvent(ev.eventId)}
-                className="bg-[#1C1C1C] hover:bg-[#2D2D2D] text-white font-bold text-[10px] uppercase tracking-wider py-2.5 px-4 rounded-sm cursor-pointer transition-colors shrink-0"
+                className="
+          bg-[#2189ed]
+          hover:bg-[#1c75cb]
+          active:bg-[#1763ad]
+          text-white
+          font-semibold
+          text-xs
+          py-2.5
+          px-4
+          rounded-lg
+          transition-all
+          shadow-sm
+          hover:shadow-md
+          cursor-pointer
+          shrink-0
+        "
               >
                 Complete & Settle {ev.eventName} (${ev.pendingCommissions.toFixed(2)})
               </button>
@@ -121,11 +142,10 @@ export default function ReferralTransactionsTable({ transactions = [], onSettleE
                   {/* Completion state */}
                   <td className="py-3.5 px-5 text-center whitespace-nowrap">
                     <div className="inline-flex flex-col items-center">
-                      <span className={`inline-flex items-center gap-1.5 text-[10px] font-bold px-2.5 py-0.5 rounded-sm border ${
-                        tx.eventCompleted
+                      <span className={`inline-flex items-center gap-1.5 text-[10px] font-bold px-2.5 py-0.5 rounded-sm border ${tx.eventCompleted
                           ? 'bg-[#E5F2E1] text-[#2D5A27] border-[#2D5A27]/15'
                           : 'bg-[#FFF9E6] text-[#A34E24] border-[#A34E24]/15'
-                      }`}>
+                        }`}>
                         {tx.eventCompleted ? (
                           <>
                             <CheckCircle className="w-3 h-3 text-[#2D5A27]" />

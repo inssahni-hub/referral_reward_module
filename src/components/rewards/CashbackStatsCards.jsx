@@ -65,26 +65,35 @@ export default function CashbackStatsCards({ stats = {}, isLoading = false }) {
           <div
             key={card.id}
             id={card.id}
-            className="relative bg-white border border-gray-100 rounded-xl p-6 shadow-xs hover:shadow-md transition-all duration-350 hover:-translate-y-0.5 overflow-hidden group"
+            className="relative bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden group"
           >
-            {/* Subtle aesthetic accents */}
-            <div className={`absolute top-0 left-0 w-1.5 h-full bg-${card.accent}-500/80`} />
+            {/* Left Accent Bar */}
+            <div className="absolute left-0 top-0 h-full w-1.5 bg-[#2189ed]" />
 
             <div className="flex justify-between items-start">
-              <div className="space-y-1.5">
-                <p className="text-sm font-medium text-gray-500">{card.title}</p>
-                <div className="flex items-baseline gap-1.5">
-                  <h4 className="text-3xl font-bold text-gray-900 tracking-tight">{card.value}</h4>
-                  <span className="text-[10px] text-gray-400 font-mono">USD</span>
+              <div className="space-y-2">
+                <p className="text-sm font-medium text-slate-500">
+                  {card.title}
+                </p>
+
+                <div className="flex items-end gap-2">
+                  <h4 className="text-3xl font-bold text-slate-900 tracking-tight">
+                    {card.value}
+                  </h4>
+
+                  <span className="text-xs text-slate-400 font-medium mb-1">
+                    USD
+                  </span>
                 </div>
-                <p className="text-xs text-gray-400 flex items-center gap-1">
-                  <Sparkles className="w-3 h-3 text-emerald-500" />
+
+                <p className="text-xs text-slate-500 flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-[#2189ed]" />
                   {card.description}
                 </p>
               </div>
 
-              <div className={`p-3 rounded-xl transition-all duration-350 group-hover:scale-105 ${card.iconBg}`}>
-                <IconComponent className="w-5 h-5" />
+              <div className="w-12 h-12 rounded-xl bg-[#2189ed]/10 flex items-center justify-center transition-all duration-300 group-hover:bg-[#2189ed] group-hover:scale-105">
+                <IconComponent className="w-5 h-5 text-[#2189ed] group-hover:text-white" />
               </div>
             </div>
           </div>

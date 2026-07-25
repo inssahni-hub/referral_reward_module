@@ -119,43 +119,64 @@ export default function PromoterDashboard() {
   return (
     <div className="space-y-6" id="promoter-dashboard-page">
       {/* Header */}
-      <div className="bg-white p-6 border border-[#E5E2DE] rounded-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-none animate-fade-in">
-        <div>
-          <span className="text-[10px] bg-[#1C1C1C] text-white font-bold tracking-widest px-2.5 py-1 rounded-sm uppercase mb-1 inline-block">
-            Promoter Workspace
-          </span>
-          <h1 className="text-2xl  text-[#1C1C1C] font-semibold tracking-tight mt-1">
-            Dashboard for {loggedInEmail}
-          </h1>
-        </div>
+      {/* Page Header */}
+      <div className="bg-white border rounded-xl p-6 shadow-sm">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 rounded-xl bg-[#2189ed]/10 flex items-center justify-center">
+              <Tags className="w-6 h-6 text-[#2189ed]" />
+            </div>
 
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => fetchPromoterData(loggedInEmail)}
-            disabled={loading}
-            className="p-2.5 text-[#706E6B] hover:text-[#1C1C1C] border border-[#E5E2DE] hover:bg-[#F7F5F2] rounded-sm transition-all cursor-pointer disabled:opacity-50 font-semibold"
-            title="Reload Promoter Ledger"
-          >
-            <RefreshCw className="w-4 h-4" />
-          </button>
+            <div>
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#2189ed]">
+                Promoter Workspace
+              </span>
 
-          <button
-            type="button"
-            onClick={handleLogout}
-            className="border border-[#E5E2DE] hover:bg-[#FFF9E6] text-[#A34E24] font-bold text-[10px] uppercase tracking-wider py-2.5 px-4 rounded-sm flex items-center gap-1.5 cursor-pointer transition-colors"
-          >
-            <LogOut className="w-3.5 h-3.5" /> Log Out
-          </button>
+              <h1 className="text-2xl font-bold text-gray-900 mt-1">
+                Welcome, {loggedInEmail}
+              </h1>
+
+              <p className="text-sm text-gray-500 mt-1">
+                Monitor referral performance, commissions, referral links, and
+                recent sales from one centralized dashboard.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={() => fetchPromoterData(loggedInEmail)}
+              disabled={loading}
+              className="h-10 w-10 rounded-lg border border-gray-200 hover:bg-[#2189ed]/10 hover:border-[#2189ed]/20 flex items-center justify-center transition disabled:opacity-50"
+            >
+              <RefreshCw className="w-4 h-4 text-gray-600" />
+            </button>
+
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="bg-red-50 hover:bg-red-100 border border-red-200 text-red-600 px-4 py-2.5 rounded-lg font-semibold flex items-center gap-2 transition"
+            >
+              <LogOut className="w-4 h-4" />
+              Logout
+            </button>
+          </div>
         </div>
       </div>
 
       {loading ? (
-        <div className="space-y-6" id="promoter-skeleton">
-          <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
-            {[1,2,3,4,5,6].map(n => <div key={n} className="h-24 bg-white border border-[#E5E2DE] rounded-sm animate-pulse"></div>)}
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-6 gap-5">
+            {[1, 2, 3, 4, 5, 6].map((n) => (
+              <div
+                key={n}
+                className="h-28 bg-white border rounded-xl shadow-sm animate-pulse"
+              />
+            ))}
           </div>
-          <div className="h-40 bg-white border border-[#E5E2DE] rounded-sm animate-pulse"></div>
+
+          <div className="h-52 bg-white border rounded-xl shadow-sm animate-pulse" />
         </div>
       ) : (
         <div className="space-y-6" id="promoter-live-dashboard">
@@ -164,18 +185,28 @@ export default function PromoterDashboard() {
 
           {/* Promotional links cards grid */}
           <div>
-            <div className="border-b border-[#E5E2DE] pb-2 mb-4">
-              <h2 className="text-xs font-bold uppercase tracking-widest text-[#1C1C1C] flex items-center gap-1.5">
-                <Tags className="w-4 h-4 text-[#1C1C1C]" /> Your Active Referral Links ({data.referralLinks.length})
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                <Tags className="w-5 h-5 text-[#2189ed]" />
+                Active Referral Links
               </h2>
-            </div>
 
+              <span className="text-sm text-gray-500">
+                {data.referralLinks.length} Links
+              </span>
+            </div>
             {data.referralLinks.length === 0 ? (
-              <div className="bg-white border border-[#E5E2DE] rounded-sm p-10 text-center max-w-sm mx-auto" id="promoter-empty-links">
-                <Tags className="w-12 h-12 text-[#A09E9B] mx-auto mb-2 opacity-60" />
-                <h4 className="text-sm font-semibold text-[#1C1C1C]">No referral links found</h4>
-                <p className="text-xs text-[#706E6B] mt-1 leading-relaxed">
-                  You don't have any referral commission codes assigned to your email address yet.
+              <div className="bg-white border rounded-xl p-10 text-center">
+                <div className="w-16 h-16 rounded-full bg-[#2189ed]/10 flex items-center justify-center mx-auto mb-4">
+                  <Tags className="w-8 h-8 text-[#2189ed]" />
+                </div>
+
+                <h3 className="text-lg font-semibold text-gray-900">
+                  No Referral Links
+                </h3>
+
+                <p className="text-sm text-gray-500 mt-2">
+                  You don't have any referral campaigns assigned yet.
                 </p>
               </div>
             ) : (
@@ -186,13 +217,15 @@ export default function PromoterDashboard() {
                     <div key={prog._id} className="bg-white border border-[#E5E2DE] p-5 rounded-sm shadow-none space-y-4">
                       <div className="flex justify-between items-start">
                         <div>
-                          <span className="text-[9px] bg-[#F7F5F2] border border-[#E5E2DE] text-[#1C1C1C] font-bold px-1.5 py-0.5 rounded-sm uppercase tracking-wider">
+                          <span className="px-3 py-1 rounded-full bg-[#2189ed]/10 text-[#2189ed] text-xs font-semibold">
                             {prog.eventName}
                           </span>
                           <h4 className="font-mono font-bold text-[#1C1C1C] mt-2 uppercase tracking-wide text-sm">{prog.referralCode}</h4>
                         </div>
-                        <span className="text-[10px] text-[#2D5A27] font-semibold bg-[#E5F2E1] border border-[#2D5A27]/20 px-2.5 py-0.5 rounded-sm">
-                          {prog.discountType === 'percentage' ? `${prog.discountValue}% Off` : `$${prog.discountValue} Off`}
+                        <span className="px-3 py-1 rounded-full bg-green-50 text-green-700 text-xs font-semibold">
+                          {prog.discountType === "percentage"
+                            ? `${prog.discountValue}% OFF`
+                            : `$${prog.discountValue} OFF`}
                         </span>
                       </div>
 
@@ -205,11 +238,11 @@ export default function PromoterDashboard() {
                         <button
                           type="button"
                           onClick={() => handleCopyLink(prog.referralCode, prog.eventId)}
-                          className={`w-full text-[10px] font-bold uppercase tracking-wider py-2.5 px-3 rounded-sm flex items-center justify-center gap-1.5 transition-all cursor-pointer border ${
-                            copiedCode === prog.referralCode
-                              ? 'bg-[#E5F2E1] border-[#2D5A27] text-[#2D5A27]'
-                              : 'bg-[#1C1C1C] border-[#1C1C1C] hover:bg-[#2D2D2D] text-white'
-                          }`}
+                          className={`w-full rounded-lg py-2.5 font-semibold transition flex items-center justify-center gap-2
+${copiedCode === prog.referralCode
+                              ? "bg-green-50 border border-green-200 text-green-700"
+                              : "bg-[#2189ed] hover:bg-[#1976d2] text-white"
+                            }`}
                         >
                           {copiedCode === prog.referralCode ? (
                             <>

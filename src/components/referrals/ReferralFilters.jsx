@@ -1,6 +1,7 @@
 import React from 'react';
 import { Filter, Calendar, Mail, Tag, ListFilter, RotateCcw } from 'lucide-react';
 import EventSelect from '../common/EventSelect.jsx';
+import { Button } from "@/components/ui/button";
 
 export default function ReferralFilters({
   filters = {},
@@ -62,13 +63,13 @@ export default function ReferralFilters({
           <label className="block text-[10px] font-bold uppercase tracking-wider text-[#706E6B] mb-1.5 flex items-center gap-1">
             <ListFilter className="w-3.5 h-3.5 text-[#A09E9B]" /> Event Specific
           </label>
-       
-           <EventSelect
-                      value={filters.eventId || ''}
-                      onChange={(id, event) => {
-                        handleFieldChange('eventId', id)
-                      }}
-                    />
+
+          <EventSelect
+            value={filters.eventId || ''}
+            onChange={(id, event) => {
+              handleFieldChange('eventId', id)
+            }}
+          />
         </div>
 
         {/* Customized Referral Code filter */}
@@ -125,13 +126,12 @@ export default function ReferralFilters({
       )}
 
       <div className="mt-4 flex justify-end">
-        <button
-          type="button"
+        <Button
           onClick={onApplyFilters}
-          className="bg-[#1C1C1C] hover:bg-[#2D2D2D] text-white font-bold text-[10px] uppercase tracking-[0.15em] py-2.5 px-6 rounded-sm cursor-pointer transition-colors shadow-none"
+          className="bg-[#2189ed] hover:bg-[#1976d2] text-white"
         >
           Apply Filters
-        </button>
+        </Button>
       </div>
     </div>
   );

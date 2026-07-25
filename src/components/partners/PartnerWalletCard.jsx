@@ -63,55 +63,115 @@ export default function PartnerWalletCard({
   return (
     <div id="wallet_card_root" className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {/* Interactive Main Pass Balance Card */}
-      <div className="lg:col-span-2 bg-gradient-to-br from-slate-900 via-slate-950 to-blue-950 rounded-3xl p-6 text-white border border-slate-800 shadow-xl relative overflow-hidden flex flex-col justify-between">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl -translate-y-1/3 translate-x-1/3 pointer-events-none"></div>
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl translate-y-1/3 -translate-x-1/3 pointer-events-none"></div>
+      <div className="lg:col-span-2 bg-gradient-to-br from-[#2189ed] via-[#1c75cb] to-[#155fa8] rounded-3xl p-6 text-white border border-[#1c75cb] shadow-xl relative overflow-hidden flex flex-col justify-between">
+        {/* Background Decorations */}
+        <div className="absolute top-0 right-0 w-80 h-80 bg-white/10 rounded-full blur-3xl -translate-y-1/3 translate-x-1/3 pointer-events-none"></div>
 
-        <div className="flex items-center justify-between z-10">
-          <div className="flex items-center gap-2.5">
-            <div className="p-2.5 bg-white/10 rounded-xl backdrop-blur-md">
-              <CreditCard className="w-5 h-5 text-blue-300" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full blur-3xl translate-y-1/3 -translate-x-1/3 pointer-events-none"></div>
+
+        {/* Header */}
+        <div className="flex items-center justify-between relative z-10">
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 bg-white/15 rounded-xl backdrop-blur-md">
+              <CreditCard className="w-5 h-5 text-white" />
             </div>
-            <span className="text-sm font-medium text-blue-200 tracking-wide uppercase">Partner Ledger Card</span>
+
+            <span className="text-sm font-semibold text-blue-100 tracking-wide uppercase">
+              Partner Ledger Card
+            </span>
           </div>
-          <span className="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2.5 py-0.5 rounded-full font-semibold">
+
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 border border-white/20 text-xs font-semibold text-white backdrop-blur">
             ✓ Connected
           </span>
         </div>
 
-        <div className="my-8 z-10">
-          <p className="text-xs text-blue-300 font-medium tracking-widest uppercase">Redeemable / Settled Cash</p>
-          <div className="flex items-baseline mt-1 gap-2">
-            <h2 className="text-4xl font-extrabold font-mono tracking-tight text-white">
-              ${available.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+        {/* Available Balance */}
+        <div className="my-8 relative z-10">
+          <p className="text-xs text-blue-100 font-semibold tracking-widest uppercase">
+            Redeemable Balance
+          </p>
+
+          <div className="flex items-end gap-2 mt-2">
+            <h2 className="text-4xl lg:text-5xl font-extrabold tracking-tight">
+              $
+              {available.toLocaleString("en-US", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
             </h2>
-            <span className="text-slate-400 text-xs font-mono">USD</span>
+
+            <span className="text-blue-100 text-sm font-medium mb-1">
+              USD
+            </span>
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-4 border-t border-white/10 pt-5 z-10 text-xs text-blue-200">
+        {/* Summary */}
+        <div className="grid grid-cols-3 gap-4 border-t border-white/20 pt-5 relative z-10">
           <div>
-            <p className="text-[10px] text-blue-400 font-bold uppercase tracking-wider">Total Earnings</p>
-            <p className="font-bold font-mono text-white text-base mt-0.5">${total.toFixed(2)}</p>
+            <p className="text-[11px] uppercase tracking-wider text-blue-100 font-semibold">
+              Total Earnings
+            </p>
+
+            <p className="text-lg font-bold mt-1">
+              ${total.toFixed(2)}
+            </p>
           </div>
-          <div className="border-l border-white/10 pl-4">
-            <p className="text-[10px] text-blue-400 font-bold uppercase tracking-wider">Pending Release</p>
-            <p className="font-bold font-mono text-white text-base mt-0.5">${pending.toFixed(2)}</p>
+
+          <div className="border-l border-white/20 pl-4">
+            <p className="text-[11px] uppercase tracking-wider text-blue-100 font-semibold">
+              Pending
+            </p>
+
+            <p className="text-lg font-bold mt-1">
+              ${pending.toFixed(2)}
+            </p>
           </div>
-          <div className="border-l border-white/10 pl-4">
-            <p className="text-[10px] text-blue-400 font-bold uppercase tracking-wider">Withdrawn Amount</p>
-            <p className="font-bold font-mono text-white text-base mt-0.5">${withdrawn.toFixed(2)}</p>
+
+          <div className="border-l border-white/20 pl-4">
+            <p className="text-[11px] uppercase tracking-wider text-blue-100 font-semibold">
+              Withdrawn
+            </p>
+
+            <p className="text-lg font-bold mt-1">
+              ${withdrawn.toFixed(2)}
+            </p>
           </div>
         </div>
 
-        <div className="mt-6 flex flex-wrap gap-4 z-10 pt-2">
+        {/* Action Button */}
+        <div className="mt-6 pt-2 relative z-10">
           <button
             id="btn_request_payout"
             onClick={onOpenWithdraw}
             disabled={available <= 0}
-            className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-bold text-sm shadow-lg shadow-emerald-500/20 active:scale-[0.98] disabled:from-slate-800 disabled:to-slate-800 disabled:text-slate-500 disabled:cursor-not-allowed transition-all duration-150"
+            className="
+                w-full
+                inline-flex
+                items-center
+                justify-center
+                gap-2
+                px-5
+                py-3
+                rounded-xl
+                bg-white
+                text-[#2189ed]
+                font-semibold
+                text-sm
+                shadow-lg
+                hover:bg-blue-50
+                hover:shadow-xl
+                active:scale-[0.98]
+                transition-all
+                disabled:bg-white/10
+                disabled:text-white/40
+                disabled:border
+                disabled:border-white/10
+                disabled:cursor-not-allowed
+              "
           >
-            <ArrowDownRight className="w-4.5 h-4.5" />
+            <ArrowDownRight className="w-4 h-4" />
             <span>Withdraw Redeemable Balance</span>
           </button>
         </div>

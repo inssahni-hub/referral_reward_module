@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from "@/request/axiosReq";
-import { ChartSpline, RefreshCw, AlertTriangle } from 'lucide-react';
+import { ChartSpline, RefreshCw, AlertTriangle, BarChart3 } from 'lucide-react';
 
 import ReferralFilters from '@/components/referrals/ReferralFilters.jsx';
 import ReferralStatsCards from '@/components/referrals/ReferralStatsCards.jsx';
@@ -84,53 +84,94 @@ export default function ReferralAnalytics() {
   return (
     <div className="space-y-6" id="referrals-analytics-page">
       {/* Banner */}
-      <div className="bg-white p-6 border border-[#E5E2DE] rounded-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-none animate-fade-in">
-        <div>
-          <span className="text-[10px] uppercase tracking-[0.2em] text-[#A09E9B] font-bold block mb-1">Performance</span>
-          <h1 className="text-2xl  text-[#1C1C1C] font-semibold leading-snug flex items-center gap-1.5">
-            Referral Performance Analytics
-          </h1>
-          <p className="text-xs text-[#706E6B] mt-0.5">Audit conversions, track promoter payouts, and verify margins.</p>
-        </div>
+      {/* Page Header */}
+      <div className="bg-white border rounded-xl p-6 shadow-sm">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 rounded-xl bg-[#2189ed]/10 flex items-center justify-center">
+              <BarChart3 className="w-6 h-6 text-[#2189ed]" />
+            </div>
 
-        <button
-          type="button"
-          onClick={fetchAnalytics}
-          disabled={loading}
-          className="p-2.5 text-[#706E6B] hover:text-[#1C1C1C] border border-[#E5E2DE] hover:bg-[#F7F5F2] rounded-sm transition-all cursor-pointer disabled:opacity-50"
-          title="Reload Performance Metrics"
-        >
-          <RefreshCw className="w-4 h-4" />
-        </button>
+            <div>
+              <span className="text-xs uppercase font-semibold tracking-wider text-[#2189ed]">
+                Analytics
+              </span>
+
+              <h1 className="text-2xl font-bold text-gray-900 mt-1">
+                Referral Performance Analytics
+              </h1>
+
+              <p className="text-sm text-gray-500 mt-1">
+                Monitor referral conversions, promoter commissions, campaign
+                performance, and revenue insights.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={fetchAnalytics}
+              disabled={loading}
+              className="h-10 w-10 rounded-lg border border-gray-200 hover:bg-[#2189ed]/10 hover:border-[#2189ed]/20 transition flex items-center justify-center disabled:opacity-50"
+            >
+              <RefreshCw className="w-4 h-4 text-gray-600" />
+            </button>
+
+            <div className="px-4 py-2 rounded-lg bg-[#2189ed]/10 border border-[#2189ed]/20">
+              <p className="text-xs text-gray-500">
+                Module
+              </p>
+
+              <p className="text-sm font-semibold text-[#2189ed]">
+                Referral Analytics
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Filters card */}
-      <ReferralFilters
-        filters={filters}
-        setFilters={setFilters}
-        onApplyFilters={handleApplyFilters}
-        onResetFilters={handleResetFilters}
-      />
+      <div className="bg-white border rounded-xl p-5 shadow-sm">
+        <ReferralFilters
+          filters={filters}
+          setFilters={setFilters}
+          onApplyFilters={handleApplyFilters}
+          onResetFilters={handleResetFilters}
+        />
+      </div>
 
       {loading ? (
-        <div className="space-y-6" id="analytics-skeleton">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            {[1, 2, 3, 4, 5].map(n => (
-              <div key={n} className="h-24 bg-white border border-[#E5E2DE] rounded-sm animate-pulse"></div>
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-5">
+            {[1, 2, 3, 4, 5].map((n) => (
+              <div
+                key={n}
+                className="h-28 bg-white border rounded-xl shadow-sm animate-pulse"
+              />
             ))}
           </div>
-          <div className="h-56 bg-white border border-[#E5E2DE] rounded-sm animate-pulse"></div>
+
+          <div className="h-72 bg-white border rounded-xl shadow-sm animate-pulse" />
         </div>
       ) : (
-        <div className="space-y-6" id="analytics-live-content">
-          {/* Bento stats cards */}
-          <ReferralStatsCards stats={analyticsData.stats} />
+        <div className="space-y-6">
 
-          {/* Visualization area */}
-          <div className="grid grid-cols-1 gap-6">
-            <ReferralRevenueChart chartData={analyticsData.chartData} />
-            <ReferralAnalyticsTable eventsBreakdown={analyticsData.eventsBreakdown} />
+          <ReferralStatsCards
+            stats={analyticsData.stats}
+          />
+
+          <div className="bg-white border rounded-xl p-6 shadow-sm">
+            <ReferralRevenueChart
+              chartData={analyticsData.chartData}
+            />
           </div>
+
+          <div className="bg-white border rounded-xl p-6 shadow-sm">
+            <ReferralAnalyticsTable
+              eventsBreakdown={analyticsData.eventsBreakdown}
+            />
+          </div>
+
         </div>
       )}
     </div>

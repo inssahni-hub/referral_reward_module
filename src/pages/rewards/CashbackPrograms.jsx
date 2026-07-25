@@ -102,24 +102,27 @@ export default function CashbackPrograms() {
   return (
     <div className="space-y-6">
       {/* Page Header */}
-      <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-xs flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+
         <div className="space-y-1">
-          <h2 className="text-xl font-bold text-gray-900 tracking-tight flex items-center gap-2">
-            <Settings className="w-5 h-5 text-emerald-600" /> Reward Rules & Campaigns Studio
+          <h2 className="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
+            <Settings className="w-5 h-5 text-[#2189ed]" />
+            Reward Rules & Campaigns Studio
           </h2>
-          <p className="text-xs text-gray-400">
-            Define incentive programs, customize min purchases, configure cap filters, and adjust credit retention timelines.
+
+          <p className="text-xs text-slate-500">
+            Define incentive programs, customize minimum purchases, configure cashback caps, and manage reward expiry policies.
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-2 shrink-0">
+        <div className="flex flex-wrap gap-2">
           <button
             onClick={triggerManualCron}
             disabled={isCronRunning}
-            className="text-xs bg-amber-50 hover:bg-amber-100/80 active:bg-amber-200 border border-amber-200 text-amber-800 font-semibold py-2 px-3.5 rounded-lg flex items-center gap-1.5 transition-all cursor-pointer disabled:opacity-50"
+            className="text-xs bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-700 font-semibold py-2 px-4 rounded-lg flex items-center gap-2 transition-all disabled:opacity-50"
           >
-            <Flame className="w-4 h-4 text-amber-500 shrink-0" />
-            {isCronRunning ? 'Cleaning...' : 'Trigger Settlement Run'}
+            <Flame className="w-4 h-4" />
+            {isCronRunning ? "Cleaning..." : "Trigger Settlement Run"}
           </button>
 
           <button
@@ -127,12 +130,13 @@ export default function CashbackPrograms() {
               setActiveProgram(null);
               setIsFormOpen(!isFormOpen);
             }}
-            className="text-xs bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-semibold py-2 px-3.5 rounded-lg flex items-center gap-1.5 transition-all cursor-pointer"
+            className="text-xs bg-[#2189ed] hover:bg-[#1976d2] text-white font-semibold py-2 px-4 rounded-lg flex items-center gap-2 shadow-sm transition-all"
           >
-            <Plus className="w-4 h-4 shrink-0" />
-            {isFormOpen ? 'Close Editor' : 'Create Campaign'}
+            <Plus className="w-4 h-4" />
+            {isFormOpen ? "Close Editor" : "Create Campaign"}
           </button>
         </div>
+
       </div>
 
       {cronMessage && (
@@ -185,7 +189,7 @@ export default function CashbackPrograms() {
                   </thead>
                   <tbody className="divide-y divide-gray-50 text-xs">
                     {programs.map((prog) => {
-                      
+
                       const hasSpecificExpiry = prog.expiryDate || prog.expiryDays;
 
                       return (
@@ -214,7 +218,7 @@ export default function CashbackPrograms() {
                           </td>
                           <td className="py-4 px-5">
                             {prog.enabled ? (
-                              <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded-full">
+                              <span className="text-[10px] font-bold bg-[#2189ed]/10 border border-[#2189ed]/20 text-[#2189ed] px-2 py-0.5 rounded-full">
                                 ACTIVE
                               </span>
                             ) : (
@@ -256,24 +260,26 @@ export default function CashbackPrograms() {
             </div>
           ) : (
             <div className="bg-emerald-50 border border-dashed border-emerald-200 rounded-xl p-6 text-center space-y-4">
-              <div className="bg-white border border-emerald-100 rounded-full w-12 h-12 flex items-center justify-center mx-auto text-emerald-600">
-                <Settings className="w-5 h-5 animate-spin" style={{ animationDuration: '6s' }} />
+              <div className="bg-white border border-[#2189ed]/20 rounded-full w-12 h-12 flex items-center justify-center mx-auto">
+                <Settings
+                  className="w-5 h-5 text-[#2189ed] animate-spin"
+                  style={{ animationDuration: "6s" }}
+                />
               </div>
               <div className="space-y-1">
-                <h4 className="text-sm font-bold text-emerald-800">Create New Guideline Programs</h4>
-                <p className="text-xs text-emerald-700/80">
-                  Select promoter properties, establish maximum cap rates, enable expiry settings, and publish active rules instantly.
+                <h4 className="text-sm font-bold text-slate-900">
+                  Create New Reward Program
+                </h4>
+
+                <p className="text-xs text-slate-500">
+                  Configure cashback rules, purchase thresholds, reward limits and expiry settings.
                 </p>
               </div>
               <button
-                onClick={() => {
-                  setActiveProgram(null);
-                  setIsFormOpen(true);
-                }}
-                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-2 px-3 rounded-lg flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+                className="w-full bg-[#2189ed] hover:bg-[#1976d2] text-white font-semibold text-xs py-2.5 rounded-lg flex items-center justify-center gap-2 shadow-sm transition-all"
               >
                 Launch Creation Wizard
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           )}

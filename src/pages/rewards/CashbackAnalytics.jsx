@@ -112,11 +112,13 @@ export default function CashbackAnalytics({ originalOrganisers = [] }) {
       {/* Title block with promoter simulator select */}
       <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-xs flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
         <div className="space-y-1">
-          <h2 className="text-xl font-bold text-gray-900 tracking-tight flex items-center gap-2">
-            <BarChart3 className="w-5 h-5 text-emerald-600" /> Promoter Analytics Workspace
+          <h2 className="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
+            <BarChart3 className="w-5 h-5 text-[#2189ed]" />
+            Reward Analytics
           </h2>
-          <p className="text-xs text-gray-400">
-            Monitor real-time cashback obligations, customer conversions, and event performance ratios.
+
+          <p className="text-sm text-slate-500">
+            Monitor cashback distribution, redemption trends, outstanding liabilities and event performance.
           </p>
         </div>
 
@@ -179,14 +181,17 @@ export default function CashbackAnalytics({ originalOrganisers = [] }) {
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={analytics.trend} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <defs>
+
                     <linearGradient id="colorEarned" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#10b981" stopOpacity={0.2} />
-                      <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
+                      <stop offset="5%" stopColor="#2189ed" stopOpacity={0.25} />
+                      <stop offset="95%" stopColor="#2189ed" stopOpacity={0} />
                     </linearGradient>
+
                     <linearGradient id="colorRedeemed" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.2} />
-                      <stop offset="95%" stopColor="#f59e0b" stopOpacity={0} />
+                      <stop offset="5%" stopColor="#60a5fa" stopOpacity={0.25} />
+                      <stop offset="95%" stopColor="#60a5fa" stopOpacity={0} />
                     </linearGradient>
+
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
                   <XAxis dataKey="date" stroke="#9ca3af" fontSize={11} strokeWidth={0.5} tickLine={false} />

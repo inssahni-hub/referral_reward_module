@@ -54,41 +54,64 @@ export default function ReferralPrograms() {
   return (
     <div className="space-y-6" id="referrals-programs-page">
       {/* Banner Area */}
-      <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 bg-white p-6 border border-[#E5E2DE] rounded-sm">
-        <div>
-          <span className="text-[10px] uppercase tracking-[0.2em] text-[#A09E9B] font-bold block mb-1">Campaigns</span>
-          <h1 className="text-2xl  font-semibold text-[#1C1C1C] leading-snug">Referral & Commission Programs</h1>
-          <p className="text-xs text-[#706E6B] mt-0.5">Configure partner links and lock in customer discount structures.</p>
-        </div>
+      {/* Page Header */}
+      <div className="bg-white border rounded-xl p-6 shadow-sm">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 rounded-xl bg-[#2189ed]/10 flex items-center justify-center">
+              <LinkIcon className="w-6 h-6 text-[#2189ed]" />
+            </div>
 
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={fetchData}
-            className="p-2.5 text-[#706E6B] hover:text-[#1C1C1C] border border-[#E5E2DE] hover:bg-[#F7F5F2] rounded-sm transition-all cursor-pointer"
-            title="Refresh Data Logs"
-          >
-            <RefreshCw className="w-4 h-4" />
-          </button>
+            <div>
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#2189ed]">
+                Referral Programs
+              </span>
 
-          <button
-            type="button"
-            onClick={() => setShowCreateForm(!showCreateForm)}
-            className="bg-[#1C1C1C] hover:bg-[#2D2D2D] text-white font-bold text-[10px] uppercase tracking-[0.15em] py-3 px-5 rounded-sm shadow-none cursor-pointer flex items-center gap-1.5 transition-all"
-          >
-            <Plus className="w-3.5 h-3.5" />
-            {showCreateForm ? 'Close Form' : 'Create Referral Link'}
-          </button>
+              <h1 className="text-2xl font-bold text-gray-900 mt-1">
+                Referral & Commission Programs
+              </h1>
+
+              <p className="text-sm text-gray-500 mt-1">
+                Configure partner referral links, promoter commissions, customer
+                discounts, and settlement rules.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={fetchData}
+              className="h-10 w-10 rounded-lg border border-gray-200 hover:bg-[#2189ed]/10 hover:border-[#2189ed]/20 transition flex items-center justify-center cursor-pointer"
+            >
+              <RefreshCw className="w-4 h-4 text-gray-600" />
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setShowCreateForm(!showCreateForm)}
+              className="bg-[#2189ed] hover:bg-[#1976d2] text-white px-5 py-2.5 rounded-lg font-semibold flex items-center gap-2 transition cursor-pointer shadow-sm"
+            >
+              <Plus className="w-4 h-4" />
+
+              {showCreateForm
+                ? "Close Form"
+                : "Create Referral Link"}
+            </button>
+          </div>
         </div>
       </div>
 
       {message.text && (
-        <div className={`p-4 rounded-sm text-xs border flex items-center gap-2 ${
-          message.type === 'success' ? 'bg-[#E5F2E1] text-[#2D5A27] border-[#2D5A27]/25' :
-          message.type === 'info' ? 'bg-white text-[#1C1C1C] border-[#E5E2DE]' :
-          'bg-[#FDF2F2] text-[#A34E24] border-[#A34E24]/25'
-        }`}>
-          <CheckCircle2 className="w-4 h-4 shrink-0" />
+        <div
+          className={`p-4 rounded-xl border flex items-center gap-2 ${message.type === "success"
+            ? "bg-green-50 border-green-200 text-green-700"
+            : message.type === "info"
+              ? "bg-[#2189ed]/10 border-[#2189ed]/20 text-[#2189ed]"
+              : "bg-red-50 border-red-200 text-red-700"
+            }`}
+        >
+          <CheckCircle2 className="w-5 h-5" />
           <span>{message.text}</span>
         </div>
       )}
@@ -102,12 +125,16 @@ export default function ReferralPrograms() {
 
       {/* Main split dashboard grids */}
       <div>
-        <div className="border-b border-[#E5E2DE] pb-2 mb-4">
-          <h2 className="text-xs font-bold uppercase tracking-widest text-[#706E6B] flex items-center gap-1.5">
-            <LinkIcon className="w-3.5 h-3.5 text-[#1C1C1C]" /> Active Referral Links ({programs.length})
+        <div className="flex items-center justify-between mb-5">
+          <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+            <LinkIcon className="w-5 h-5 text-[#2189ed]" />
+            Active Referral Links
           </h2>
-        </div>
 
+          <span className="text-sm text-gray-500">
+            {programs.length} Programs
+          </span>
+        </div>
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4" id="cards-skeleton">
             {[1, 2, 3].map(n => (
@@ -119,17 +146,25 @@ export default function ReferralPrograms() {
             ))}
           </div>
         ) : programs.length === 0 ? (
-          <div className="bg-white border border-[#E5E2DE] rounded-sm p-10 text-center max-w-lg mx-auto" id="programs-empty-state">
-            <LinkIcon className="w-12 h-12 text-[#A09E9B]/50 mx-auto mb-3" />
-            <h3 className="text-sm font-semibold text-[#1C1C1C]">No active referral links</h3>
-            <p className="text-xs text-[#706E6B] mt-1 pb-4">
-              Get started by creating a customized referral code above that links promoters to buyer benefits.
+          <div className="bg-white border rounded-xl p-10 text-center">
+            <div className="w-16 h-16 rounded-full bg-[#2189ed]/10 flex items-center justify-center mx-auto mb-4">
+              <LinkIcon className="w-8 h-8 text-[#2189ed]" />
+            </div>
+
+            <h3 className="text-lg font-semibold text-gray-900">
+              No Referral Programs
+            </h3>
+
+            <p className="text-sm text-gray-500 mt-2 mb-6">
+              Create your first referral campaign to start rewarding promoters and
+              customers.
             </p>
+
             <button
               onClick={() => setShowCreateForm(true)}
-              className="bg-white hover:bg-[#F7F5F2] border border-[#E5E2DE] text-[#1C1C1C] font-bold text-[10px] uppercase tracking-wider py-2.5 px-4 rounded-sm cursor-pointer transition-colors"
+              className="bg-[#2189ed] hover:bg-[#1976d2] text-white px-5 py-2.5 rounded-lg font-semibold"
             >
-              Generate First Link Now
+              Create Referral Program
             </button>
           </div>
         ) : (
@@ -143,17 +178,22 @@ export default function ReferralPrograms() {
 
       {/* Referral Transactions and Order History Log */}
       <div className="pt-4">
-        <div className="border-b border-[#E5E2DE] pb-2 mb-4">
-          <h2 className="text-xs font-bold uppercase tracking-widest text-[#706E6B] flex items-center gap-1.5">
-            <ShoppingCart className="w-3.5 h-3.5 text-[#1C1C1C]" /> Sales Transactions & Settlements
+        <div className="flex items-center justify-between mb-5">
+          <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+            <ShoppingCart className="w-5 h-5 text-[#2189ed]" />
+            Sales Transactions
           </h2>
+
+          <span className="text-sm text-gray-500">
+            Referral Settlements
+          </span>
         </div>
         {loading ? (
           <div className="h-40 bg-white border border-[#E5E2DE] rounded-sm animate-pulse"></div>
         ) : (
-          <ReferralTransactionsTable 
-            transactions={transactions} 
-            onSettleEvent={handleSettleEvent} 
+          <ReferralTransactionsTable
+            transactions={transactions}
+            onSettleEvent={handleSettleEvent}
           />
         )}
       </div>

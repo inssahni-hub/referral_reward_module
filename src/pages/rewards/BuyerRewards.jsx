@@ -115,8 +115,9 @@ export default function BuyerRewards({ buyerId = '69e82921e2f94bbebbe37f3c' }) {
       {/* Organizer Wallets Grid */}
       <div className="space-y-4">
         <div className="flex justify-between items-center">
-          <h3 className="font-bold text-gray-800 text-sm flex items-center gap-2">
-            <ShoppingBag className="w-4 h-4 text-emerald-600" /> Organiser-Wise Wallets
+          <h3 className="font-bold text-slate-800 text-sm flex items-center gap-2">
+            <ShoppingBag className="w-4 h-4 text-[#2189ed]" />
+            Organiser Wallets
           </h3>
           <span className="text-xs text-gray-400">Cashback cannot be merged or shared</span>
         </div>
@@ -128,9 +129,18 @@ export default function BuyerRewards({ buyerId = '69e82921e2f94bbebbe37f3c' }) {
             ))}
           </div>
         ) : wallets.length === 0 ? (
-          <div className="bg-gray-50 border border-dashed border-gray-200 rounded-xl p-8 text-center">
-            <p className="text-xs text-gray-400 font-medium">No Organiser Wallets Configured</p>
-            <p className="text-[10px] text-gray-400 mt-0.5">Purchasing from ticket centers will automatically spawn your wallets.</p>
+          <div className="bg-[#2189ed]/5 border border-dashed border-[#2189ed]/20 rounded-xl p-8 text-center">
+
+            <ShoppingBag className="mx-auto w-10 h-10 text-[#2189ed]/40 mb-3" />
+
+            <h4 className="text-sm font-semibold text-slate-800">
+              No Reward Wallets
+            </h4>
+
+            <p className="text-xs text-slate-500 mt-1">
+              Purchase tickets from participating organisers to automatically create your reward wallets.
+            </p>
+
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

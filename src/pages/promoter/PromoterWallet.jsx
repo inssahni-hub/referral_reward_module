@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from "@/request/axiosReq";
-import { Mail, RefreshCw, Milestone, Landmark, Clock, Coins, CheckCircle, ArrowUpRight, ArrowDownLeft } from 'lucide-react';
+import { Mail, RefreshCw, Milestone, Landmark, Clock, Coins, CheckCircle, ArrowUpRight, ArrowDownLeft, Wallet } from 'lucide-react';
 
 import PromoterWalletCard from '@/components/promoter/PromoterWalletCard.jsx';
 import PromoterWithdrawModal from '@/components/promoter/PromoterWithdrawModal.jsx';
@@ -60,11 +60,13 @@ export default function PromoterWallet() {
       <div className="bg-white p-6 border border-[#E5E2DE] rounded-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-none animate-fade-in">
         <div>
           <span className="text-[10px] uppercase tracking-[0.2em] text-[#A09E9B] font-bold block mb-1">Redemptions & Funds</span>
-          <h1 className="text-2xl text-[#1C1C1C] font-semibold leading-snug flex items-center gap-2">
+          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+            <Wallet className="w-6 h-6 text-[#2189ed]" />
             Promoter Balance & Payouts
           </h1>
-          <p className="text-xs text-[#706E6B] mt-0.5">
-            Redeem commission balances and review complete ledger credit activities.
+
+          <p className="text-sm text-gray-500 mt-1">
+            Redeem commission balances and review complete payout and wallet transactions.
           </p>
         </div>
 
@@ -72,7 +74,7 @@ export default function PromoterWallet() {
           type="button"
           onClick={fetchWalletDetails}
           disabled={loading}
-          className="p-2.5 text-[#706E6B] hover:text-[#1C1C1C] border border-[#E5E2DE] hover:bg-[#F7F5F2] rounded-sm transition-all cursor-pointer disabled:opacity-50 shrink-0"
+          className="p-2.5 rounded-lg border border-gray-200 text-gray-600 hover:bg-[#2189ed]/10 hover:text-[#2189ed] transition-all cursor-pointer disabled:opacity-50"
         >
           <RefreshCw className="w-4 h-4" />
         </button>
@@ -91,18 +93,23 @@ export default function PromoterWallet() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Withdrawal / Payout request logs */}
             <div className="bg-white border border-[#E5E2DE] rounded-sm flex flex-col shadow-none">
-              <div className="p-4 border-b border-[#E5E2DE] bg-[#F7F5F2]">
-                <h3 className="text-xs font-bold text-[#1C1C1C] flex items-center gap-1.5 uppercase tracking-wider">
-                  <Landmark className="w-3.5 h-3.5 text-[#1C1C1C]" /> Bank Payout Requests
+              <div className="p-4 border-b bg-[#2189ed]/5">
+                <h3 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
+                  <Landmark className="w-4 h-4 text-[#2189ed]" />
+                  Bank Payout Requests
                 </h3>
               </div>
 
               <div className="flex-1 overflow-x-auto">
                 {data.payoutRequests.length === 0 ? (
                   <div className="p-8 text-center" id="payout-empty shadow-sm">
-                    <Milestone className="w-10 h-10 text-[#A09E9B] mx-auto mb-2 opacity-60" />
-                    <h5 className="text-xs font-semibold text-[#1C1C1C]">No withdrawal requests yet</h5>
-                    <p className="text-xs text-[#706E6B] mt-1 leading-relaxed">
+                    <Milestone className="w-10 h-10 text-[#2189ed]/40 mx-auto mb-3" />
+
+                    <h5 className="text-sm font-semibold text-gray-900">
+                      No withdrawal requests yet
+                    </h5>
+
+                    <p className="text-sm text-gray-500 mt-2">
                       Once balance redemptions are created, transfer request statuses can be tracked here.
                     </p>
                   </div>
@@ -159,40 +166,66 @@ export default function PromoterWallet() {
                 ) : (
                   <table className="w-full text-left border-collapse">
                     <thead>
-                      <tr className="border-b border-[#E5E2DE] text-[#706E6B] text-[10px] font-bold uppercase tracking-wider bg-[#F7F5F2]/40">
+                      <tr className="border-b border-[#dbeafe] bg-[#f8fbff] text-[10px] font-bold uppercase tracking-wider text-[#2189ed]">
                         <th className="py-2.5 px-4 font-semibold">Ledger Type</th>
                         <th className="py-2.5 px-4 font-semibold">Statement Reference</th>
                         <th className="py-2.5 px-4 text-right font-semibold">Credit / Debit</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-[#F0EEEB] text-xs text-[#4A4A4A]">
+
+                    <tbody className="divide-y divide-[#eef6ff] text-xs">
                       {data.ledger.map((line) => {
                         const isCredit = Number(line.amount) > 0;
+
                         return (
-                          <tr key={line._id} className="hover:bg-[#F7F5F2]/45 transition-colors">
-                            <td className="py-3 px-4 flex items-center gap-2">
-                              <div className={`p-1 rounded-sm shrink-0 border ${
-                                isCredit ? 'bg-[#E5F2E1] border-[#2D5A27]/10 text-[#2D5A27]' : 'bg-[#FFF9E6] border-[#A34E24]/10 text-[#A34E24]'
-                              }`}>
-                                {isCredit ? <ArrowUpRight className="w-3.5 h-3.5" /> : <ArrowDownLeft className="w-3.5 h-3.5" />}
-                              </div>
-                              <div>
-                                <div className="font-bold text-[#1C1C1C]">
-                                  {isCredit ? 'Commission' : 'Withdrawal'}
+                          <tr
+                            key={line._id}
+                            className="hover:bg-[#f8fbff] transition-colors"
+                          >
+                            <td className="py-3 px-4">
+                              <div className="flex items-center gap-2">
+                                <div
+                                  className={`p-1.5 rounded-lg border ${isCredit
+                                      ? "bg-[#eaf4ff] border-[#b9ddff] text-[#2189ed]"
+                                      : "bg-[#f3f4f6] border-[#d1d5db] text-gray-500"
+                                    }`}
+                                >
+                                  {isCredit ? (
+                                    <ArrowUpRight className="w-3.5 h-3.5" />
+                                  ) : (
+                                    <ArrowDownLeft className="w-3.5 h-3.5" />
+                                  )}
                                 </div>
-                                <div className="text-[9px] text-[#A09E9B]">
-                                  {new Date(line.createdAt).toLocaleDateString()}
+
+                                <div>
+                                  <div className="font-semibold text-gray-900">
+                                    {isCredit ? "Commission" : "Withdrawal"}
+                                  </div>
+
+                                  <div className="text-[10px] text-gray-500">
+                                    {new Date(line.createdAt).toLocaleDateString()}
+                                  </div>
                                 </div>
                               </div>
                             </td>
-                            <td className="py-3 px-4 text-[#706E6B]">
-                              <div className="font-semibold text-[#1C1C1C] shrink-0 line-clamp-1">{line.description}</div>
-                              <div className="text-[9px] text-[#A09E9B] font-mono">Ref: #{line.referenceId?.slice(-8)}</div>
+
+                            <td className="py-3 px-4">
+                              <div className="font-medium text-gray-900 line-clamp-1">
+                                {line.description}
+                              </div>
+
+                              <div className="text-[10px] text-gray-500 font-mono">
+                                Ref: #{line.referenceId?.slice(-8)}
+                              </div>
                             </td>
-                            <td className={`py-3 px-4 text-right font-mono font-bold ${
-                              isCredit ? 'text-[#2D5A27]' : 'text-[#A34E24]'
-                            }`}>
-                              {isCredit ? `+$${line.amount.toFixed(2)}` : `-$${Math.abs(line.amount).toFixed(2)}`}
+
+                            <td
+                              className={`py-3 px-4 text-right font-semibold ${isCredit ? "text-[#2189ed]" : "text-gray-600"
+                                }`}
+                            >
+                              {isCredit
+                                ? `+$${line.amount.toFixed(2)}`
+                                : `-$${Math.abs(line.amount).toFixed(2)}`}
                             </td>
                           </tr>
                         );
