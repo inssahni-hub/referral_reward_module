@@ -40,7 +40,7 @@ export default function EventRoutes() {
         <Route path="partners" element={<ProtectedRoute permissions={["event.view",]} ><Partners /></ProtectedRoute> }/>
         <Route path="partner/:partnerId" element={ <ProtectedRoute permissions={[ "event.view", ]} > <PartnerDetails /></ProtectedRoute> }/>
         <Route path="rewards" element={<RewardCenter />} />
-        <Route path="referal-promoter-center" element={<ReferralPromoterCenter />} />
+        <Route path="referral-promoter-center" element={<ReferralPromoterCenter />} />
 
        
 
