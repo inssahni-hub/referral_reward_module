@@ -74,19 +74,22 @@ export default function App() {
   /* ================= RENDER ================= */
   return (
     <Layout
-      user={user}
-      onLogout={handleLogout}
-      onProfileClick={() => {
-        if (user?._id) {
-           navigate(`/admin/user/${user._id}`);
-        }
-      }}
-      logo={logo}
-      logoLink="/dashboard"
-      ActiveRoleSwitch={ActiveRoleSwitch}
-      OrgRoleSwitch={OrgRoleSwitch}
-      NotificationComponent={MyNotifications} // optional
-    >
+          user={user}
+          onLogout={handleLogout}
+          onProfileClick={() => {
+            if (user?._id) {
+              window.location.href = `/admin/users/user/${user._id}`;
+            }
+          }}
+          logo={logo}
+          onLogoClick={() => {
+            window.location.href = `/admin/dashboard/home`;
+          }}
+          ActiveRoleSwitch={ActiveRoleSwitch}
+          OrgRoleSwitch={OrgRoleSwitch}
+          NotificationComponent={MyNotifications} // optional,
+          current_module="reward"
+        >
       <ReferalRewardRoutes />
       <SessionExpiredModal />
     </Layout>

@@ -9,7 +9,7 @@ import "./index.css";
 
 createRoot(document.getElementById("root")).render(
   
-    <BrowserRouter>
+    <BrowserRouter basename="/admin/referral-rewards">
       <Provider store={store}>
         <App />
          <Toaster />
